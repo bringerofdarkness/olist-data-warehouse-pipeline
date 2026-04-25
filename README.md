@@ -18,14 +18,13 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 
 ## 🧱 Architecture
 
-| Stage        | Description              |
-|-------------|--------------------------|
-| Raw CSV     | Source data              |
-| Bronze      | Raw ingestion            |
-| Silver      | Cleaned & transformed    |
-| Gold        | Star schema              |
-| Quality     | Data validation          |
-| Monitoring  | Pipeline tracking        |
+```mermaid
+flowchart LR
+    A[Raw CSV Files] --> B[Bronze]
+    B --> C[Silver]
+    C --> D[Gold]
+    D --> E[Quality Checks]
+    E --> F[Monitoring]
 
 
 ---
