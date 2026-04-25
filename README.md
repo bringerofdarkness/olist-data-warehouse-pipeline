@@ -18,8 +18,14 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 
 ## 🧱 Architecture
 
-
-Raw CSV Files → Bronze Layer (Raw Data) → Silver Layer (Cleaned Data) → Gold Layer (Star Schema) → Data Quality Checks → Pipeline Monitoring
+| Stage        | Description              |
+|-------------|--------------------------|
+| Raw CSV     | Source data              |
+| Bronze      | Raw ingestion            |
+| Silver      | Cleaned & transformed    |
+| Gold        | Star schema              |
+| Quality     | Data validation          |
+| Monitoring  | Pipeline tracking        |
 
 
 ---
