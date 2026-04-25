@@ -5,7 +5,7 @@
 
 End-to-end Data Engineering pipeline using **PostgreSQL and Python**, featuring **SQL-driven transformations, Medallion Architecture, and production-grade monitoring**.
 
-This project builds a **production-style data pipeline** that ingests raw Olist e-commerce CSV data, transforms it using a **Medallion Architecture (Bronze, Silver, Gold)**, and applies **monitoring, logging, and automation**.
+This pipeline ingests raw Olist e-commerce CSV data and transforms it into analytics-ready datasets through structured layers (Bronze, Silver, Gold) with built-in logging, quality checks, and automation.
 
 ---
 
