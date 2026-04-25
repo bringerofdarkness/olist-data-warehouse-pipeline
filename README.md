@@ -3,9 +3,9 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DataWarehouse-blue)
 
-End-to-end Data Engineering pipeline using **PostgreSQL, Python, and SQL**.
+End-to-end Data Engineering pipeline using **PostgreSQL and Python**, featuring **SQL-driven transformations, Medallion Architecture, and production-grade monitoring**.
 
-This project builds a **local production-style data pipeline** that ingests raw Olist e-commerce CSV data, transforms it using a **Medallion Architecture (Bronze, Silver, Gold)**, and applies **monitoring, logging, and automation**.
+This project builds a **production-style data pipeline** that ingests raw Olist e-commerce CSV data, transforms it using a **Medallion Architecture (Bronze, Silver, Gold)**, and applies **monitoring, logging, and automation**.
 
 ---
 
