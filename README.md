@@ -1,5 +1,8 @@
 # 🏗️ Olist Data Warehouse Pipeline
 
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DataWarehouse-blue)
+
 End-to-end Data Engineering pipeline using **PostgreSQL, Python, and SQL**.
 
 This project builds a **local production-style data pipeline** that ingests raw Olist e-commerce CSV data, transforms it using a **Medallion Architecture (Bronze, Silver, Gold)**, and applies **monitoring, logging, and automation**.
@@ -18,49 +21,63 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 
 ## 🧱 Architecture
 
-```mermaid
-flowchart LR
-    A[Raw CSV Files] --> B[Bronze]
-    B --> C[Silver]
-    C --> D[Gold]
-    D --> E[Quality Checks]
-    E --> F[Monitoring]
+| Stage        | Description              |
+|-------------|--------------------------|
+| Raw CSV     | Source data              |
+| Bronze      | Raw ingestion            |
+| Silver      | Cleaned & transformed    |
+| Gold        | Star schema              |
+| Quality     | Data validation          |
+| Monitoring  | Pipeline tracking        |
 
 
 ---
 
 ## 🛠️ Tech Stack
 
+**Database**
 - PostgreSQL  
+
+**Programming**
 - Python  
+
+**Data Processing**
 - SQL  
+
+**Libraries**
 - psycopg2  
 - python-dotenv  
+
+**Orchestration & Automation**
+- Python scripts  
 - Windows Task Scheduler  
-- Git / GitHub  
+
+**Version Control**
+- Git  
+- GitHub   
 
 ---
 
 ## 📂 Project Structure
 
-
+```text
 olist-data-warehouse-pipeline/
 │
 ├── sql/
-│ ├── 00_create_schemas.sql
-│ ├── 01_bronze_load.sql
-│ ├── 02_silver_transform.sql
-│ ├── 03_gold_model.sql
-│ ├── 04_quality_checks.sql
-│ ├── 05_analytics_queries.sql
-│ └── 06_bi_views.sql
+│   ├── 00_create_schemas.sql
+│   ├── 01_bronze_load.sql
+│   ├── 02_silver_transform.sql
+│   ├── 03_gold_model.sql
+│   ├── 04_quality_checks.sql
+│   ├── 05_analytics_queries.sql
+│   └── 06_bi_views.sql
 │
 ├── run_pipeline.py
 ├── quality_checks.py
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-
+```
 
 ---
 
@@ -138,71 +155,103 @@ Run manually:
 
 ```bash
 python run_pipeline.py
-📊 Pipeline Monitoring
-🔁 Run-Level Tracking
+```
 
-Table: public.pipeline_runs
+---
 
-Columns:
+## 📊 Pipeline Monitoring
 
-run_id
-start_time
-end_time
-status
-🔹 Step-Level Tracking
+### 🔁 Run-Level Tracking
 
-Table: public.pipeline_steps
+**Table:** `public.pipeline_runs`
 
-Columns:
+**Columns:**
+- run_id
+- start_time
+- end_time
+- status
 
-step_id
-run_id
-step_name
-start_time
-end_time
-status
-📜 Logging
+### 🔹 Step-Level Tracking
 
-Logs are stored in the logs/ folder.
+**Table:** `public.pipeline_steps`
 
-Example:
+**Columns:**
+- step_id
+- run_id
+- step_name
+- start_time
+- end_time
+- status
 
+---
+
+## 📜 Logging
+
+Logs are stored in the `logs/` folder.
+
+**Example:**
+
+```text
 Pipeline started
 Executing step: sql/01_bronze_load.sql | Attempt: 1
 Finished: sql/01_bronze_load.sql | Rows: 103886 | Time: 0.63s
 Pipeline completed successfully
-🔁 Retry Logic
+```
+
+---
+
+## 🔁 Retry Logic
 
 Each step retries on failure:
 
-Attempt 1 → fail  
-Attempt 2 → retry  
-Attempt 3 → retry → fail  
-🔍 Data Quality Checks
-Row count validation
-Null checks
-Duplicate checks
-Fact table non-empty check
+```text
+Attempt 1 → fail
+Attempt 2 → retry
+Attempt 3 → retry → fail
+```
+
+---
+
+## 🔍 Data Quality Checks
+
+- Row count validation
+- Null checks
+- Duplicate checks
+- Fact table non-empty check
 
 ❗ Pipeline fails if checks fail.
 
-⏱️ Automation
+---
 
-Scheduled using Windows Task Scheduler.
+## ⏱️ Automation
+
+Scheduled using **Windows Task Scheduler**.
 
 Runs:
 
-run_pipeline.py
-🔐 Environment Variables
+```bash
+python run_pipeline.py
+```
 
-Create a .env file:
+---
 
+## 🔐 Environment Variables
+
+Create a `.env` file:
+
+```env
 DB_NAME=olist_dw
 DB_USER=postgres
 DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=5432
-🚀 Setup & Run
+```
+
+---
+
+## 🚀 Setup & Run
+
+```bash
 git clone https://github.com/bringerofdarkness/olist-data-warehouse-pipeline.git
 cd olist-data-warehouse-pipeline
 
@@ -212,23 +261,24 @@ python -m venv .venv
 pip install -r requirements.txt
 
 python run_pipeline.py
-🔮 Future Improvements
-Incremental loading
-Docker
-Airflow
-Cloud deployment
-Alert system
-👤 Author
-
-GitHub: https://github.com/bringerofdarkness
-
+```
 
 ---
 
-This one is actually correct:
-- no `id=`
-- no broken markdown
-- one file
-- GitHub clean render
+## 🔮 Future Improvements
 
-If something still looks off after this, tell me exactly what — but now we’re fixing real is
+- Incremental loading
+- Docker
+- Airflow
+- Cloud deployment
+- Alert system
+
+---
+
+## 👤 Author
+
+GitHub: https://github.com/bringerofdarkness
+Linkedin: https://www.linkedin.com/in/md-shahrul-zakaria-24a805230/
+
+---
+
