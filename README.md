@@ -9,7 +9,7 @@ This pipeline ingests raw Olist e-commerce CSV data and transforms it into analy
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 The pipeline processes raw data into analytics-ready tables using structured layers:
 
@@ -19,7 +19,7 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 
 ---
 
-## 🧱 Architecture
+##  Architecture
 
 | Stage        | Description              |
 |-------------|--------------------------|
@@ -33,7 +33,7 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Database**
 - PostgreSQL  
@@ -58,7 +58,7 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 olist-data-warehouse-pipeline/
@@ -81,9 +81,9 @@ olist-data-warehouse-pipeline/
 
 ---
 
-## 🧱 Data Warehouse Layers
+##  Data Warehouse Layers
 
-### 🟤 Bronze Layer (Raw Data)
+### Bronze Layer (Raw Data)
 
 Stores raw CSV data with minimal transformation.
 
@@ -114,7 +114,7 @@ Cleaned, structured, and typed data.
 
 ---
 
-### 🟡 Gold Layer (Analytics Layer)
+###  Gold Layer (Analytics Layer)
 
 Analytics-ready **star schema**.
 
@@ -127,7 +127,7 @@ Analytics-ready **star schema**.
 
 ---
 
-## ⚙️ Pipeline Features
+##  Pipeline Features
 
 - Medallion Architecture  
 - Python orchestration  
@@ -141,7 +141,7 @@ Analytics-ready **star schema**.
 
 ---
 
-## ▶️ Pipeline Execution
+##  Pipeline Execution
 
 Pipeline steps:
 
@@ -159,9 +159,9 @@ python run_pipeline.py
 
 ---
 
-## 📊 Pipeline Monitoring
+##  Pipeline Monitoring
 
-### 🔁 Run-Level Tracking
+###  Run-Level Tracking
 
 **Table:** `public.pipeline_runs`
 
@@ -185,7 +185,7 @@ python run_pipeline.py
 
 ---
 
-## 📜 Logging
+##  Logging
 
 Logs are stored in the `logs/` folder.
 
@@ -200,7 +200,7 @@ Pipeline completed successfully
 
 ---
 
-## 🔁 Retry Logic
+##  Retry Logic
 
 Each step retries on failure:
 
@@ -212,7 +212,7 @@ Attempt 3 → retry → fail
 
 ---
 
-## 🔍 Data Quality Checks
+##  Data Quality Checks
 
 - Row count validation
 - Null checks
@@ -223,7 +223,7 @@ Attempt 3 → retry → fail
 
 ---
 
-## ⏱️ Automation
+##  Automation
 
 Scheduled using **Windows Task Scheduler**.
 
@@ -235,7 +235,7 @@ python run_pipeline.py
 
 ---
 
-## 🔐 Environment Variables
+##  Environment Variables
 
 Create a `.env` file:
 
@@ -249,7 +249,7 @@ DB_PORT=5432
 
 ---
 
-## 🚀 Setup & Run
+##  Setup & Run
 
 ```bash
 git clone https://github.com/bringerofdarkness/olist-data-warehouse-pipeline.git
@@ -265,7 +265,7 @@ python run_pipeline.py
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 
 - Incremental loading
 - Docker
