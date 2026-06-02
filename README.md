@@ -38,6 +38,23 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 **Database**
 - PostgreSQL  
 
+**Programming & Frameworks**
+- Python 3.11
+- Django REST Framework (API Control Plane)
+
+**Distributed Task Queue & Automation**
+- Celery (Async Task Processing)
+- Redis 7 (Isolated Message Broker)
+- Docker & Docker Compose (Containerized Infrastructure)
+
+**Data Processing**
+- SQL (Medallion Architecture Layering)
+
+**Drivers & Core Libraries**
+- psycopg (v3 / Binary Edition)  
+- python-dotenv  
+- django-cors-headers 
+
 **Programming**
 - Python  
 
@@ -63,19 +80,31 @@ Raw CSV → Bronze → Silver → Gold → Quality Checks → Monitoring
 ```text
 olist-data-warehouse-pipeline/
 │
-├── sql/
-│   ├── 00_create_schemas.sql
-│   ├── 01_bronze_load.sql
-│   ├── 02_silver_transform.sql
-│   ├── 03_gold_model.sql
-│   ├── 04_quality_checks.sql
-│   ├── 05_analytics_queries.sql
-│   └── 06_bi_views.sql
+├── core_pipeline/           # Moved original pipeline scripts here
+│   ├── run_pipeline.py
+│   └── quality_checks.py
 │
-├── run_pipeline.py
-├── quality_checks.py
-├── requirements.txt
-├── README.md
+├── olist_platform/          # Django API Core Configuration
+│   ├── __init__.py
+│   ├── celery.py            # Celery app initialization
+│   ├── settings.py          # Dynamic enterprise settings
+│   ├── urls.py
+│   └── wsgi.py / asgi.py
+│
+├── pipeline_manager/        # Pipeline Control App
+│   ├── models.py            # Reverse-engineered Django ORM models
+│   ├── serializers.py       # Frontend-ready JSON serializers
+│   ├── tasks.py             # Celery subprocess async tasks
+│   ├── urls.py              # API endpoint mapping
+│   └── views.py             # API Controllers (Trigger & Status)
+│
+├── sql/
+│   └── ... (Your SQL scripts)
+│
+├── Dockerfile               # Production multi-stage Python environment
+├── docker-compose.yml       # Isolated network & services orchestrator
+├── manage.py
+├── requirements.txt         # Added Django, Celery, Redis & Psycopg drivers
 └── .gitignore
 ```
 
@@ -142,20 +171,44 @@ Analytics-ready **star schema**.
 ---
 
 ##  Pipeline Execution
+The infrastructure is completely containerized and decoupled using Docker Compose across three isolated services: `backend` (Django REST API), `celery_worker` (Task Executor), and `olist_redis_service` (Broker). 
 
-Pipeline steps:
+This allows you to run this pipeline seamlessly even if you have other Redis or Docker projects active on your machine.
 
-1. Create schemas  
-2. Load Bronze data  
-3. Transform to Silver  
-4. Build Gold model  
-5. Run quality checks  
+### 1. Boot up the Infrastructure
 
-Run manually:
+Spin up the entire decoupled architecture in detached mode with an isolated network bridge:
 
 ```bash
-python run_pipeline.py
+docker-compose up -d --build
 ```
+
+### 2. Trigger via REST API (De-coupled Control Plane)
+
+Instead of running synchronous Python scripts that block execution, trigger the complete Medallion ETL pipeline asynchronously using any HTTP Client (Postman, cURL, or PowerShell):
+
+* **Endpoint:** `POST http://localhost:8085/api/pipeline/trigger/`
+
+**Example via cURL:**
+
+```bash
+curl -X POST http://localhost:8085/api/pipeline/trigger/
+```
+
+**Expected JSON Response:**
+
+```json
+{
+  "message": "Pipeline triggered successfully",
+  "celery_task_id": "bb07e179-e7a6-4574-96cf-7b76b76ceb4a"
+}
+```
+
+### 3. Fetch Real-Time Metadata & Analytics (GET)
+
+Retrieve full ORM-mapped nested pipeline steps and runs for live dashboarding directly through the control plane API. It provides a built-in interactive web interface when opened in a browser:
+
+* **Endpoint:** `GET http://localhost:8085/api/pipeline/status/`
 
 ---
 
@@ -267,11 +320,11 @@ python run_pipeline.py
 
 ##  Future Improvements
 
-- Incremental loading
-- Docker
-- Airflow
-- Cloud deployment
-- Alert system
+```markdown
+- Airflow orchestration for complex cross-pipeline dependency graphing
+- Cloud deployment (AWS ECS / Managed Kubernetes)
+- dbt (Data Build Tool) integration for structural data models and lineage
+- Incremental data loading with Change Data Capture (CDC)
 
 ---
 
